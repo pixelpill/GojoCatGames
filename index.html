@@ -1,3 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>gojo cat games</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #eee;
+      font-family: sans-serif;
+      padding: 40px;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      width: 240px;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    a.game-link {
+      display: block;
+      margin: 12px auto;
+      padding: 10px 0;
+      width: 240px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #222;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    a.game-link:hover {
+      background-color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <input type="text" id="searchBar" placeholder="Search games...">
+
+  <div id="gameList">
+    <a class="game-link" href="BaldisBasics.html">Baldi's Basics</a>
+    <a class="game-link" href="FunnyShooter2.html">Funny Shooter 2</a>
+    <a class="game-link" href="Slope.html">Slope</a>
+    <a class="game-link" href="Minecraft.html">Minecraft Classic</a>
+    <a class="game-link" href="RetroBasketball.html">Retro Basketball</a>
+    <!-- Add more games here -->
+  </div>
+
+  <script>
+    const searchBar = document.getElementById('searchBar');
+    const gameLinks = document.querySelectorAll('.game-link');
+
+    searchBar.addEventListener('input', () => {
+      const query = searchBar.value.toLowerCase();
+      gameLinks.forEach(link => {
+        const text = link.textContent.toLowerCase();
+        link.style.display = text.includes(query) ? 'block' : 'none';
+      });
+    });
+  </script>
+
+</body>
+</html>
   <!DOCTYPE html>
 <html lang="en">
 <head>
