@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Geometry Dash</title>
+    <style>
+      html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        resize: none;
+      }
+      body{
+        background-color: indigo;
+      }
+      canvas{
+        background-color: lightblue;
+        padding: 0;
+        margin: auto;
+        display: block;
+        width: 1366px;
+        height: 768px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border: 3px inset black
+      }
+      #score{
+        color: white;
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <p id = "score">Score: 0</p>
+  </body>
+  <canvas id="canvas"></canvas>
+  <script>
+  class Entity{
+    constructor(height, width, x, y, color) {
+      this.height = height;
+      this.width = width;
+      this.x = x;
+      this.y = y;
+      this.color = color;
+      let date = new Date();
+      this.time = date.getTime();
+      this.delay_correction_pixels = 40;
+    }
+    drawEntity(ctx){
+    }
+    getTime(){
+      return this.time;
+    }
+    isGround(x){
+      return false;
+    }
+    hasCollided(x,y){
+    }
+    getHeight(){ return this.height; }
+  }
+  class Spike extends Entity{
+    constructor(height, width, x, y, color) {
+      super(height,width,x,y,color);
+    }
+    drawEntity(ctx){
+      ctx.beginPath();
+      ctx.moveTo(this.x + this.width/2, this.y);
+      ctx.lineTo(this.x, this.y+this.height);
+      ctx.lineTo(this.x+this.width, this.y+this.height);
+      ctx.closePath();
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      this.x-=7;
+    }
+    hasCollided(x,y){
+      if(y > this.y
+      && (y-65) < this.y + this.height
+      && x > (this.x + (this.width/2) - ((y-this.y)*(this.width/56))) + this.delay_correction_pixels
+      && x < (this.x + (this.width/2) + ((y-this.y)*(this.width/56))) + this.delay_correction_pixels) return true;
+      else return false;
+    }
+  }
+  class Block extends Entity{
+    constructor(height, width, x, y, color) {
+      super(height,width,x,y,color);
+    }
+    drawEntity(ctx){
+      ctx.beginPath();
+      ctx.fillStyle = this.color;
+      ctx.fillRect(this.x, this.y, this.width, this.height);
+      ctx.closePath();
+      this.x-=7;
+      this.delay_correction_pixels = 15;
+    }
+    hasCollided(x,y){
+      if(y > this.y
+      && (y-65) < this.y + this.height
+      && x > this.x + this.delay_correction_pixels
+      && x < this.x + this.width + this.delay_correction_pixels) return true;
+      else return false;
+    }
+    isGround(x){ //x is the x-coordinate of the left edge of player
+      if(x<(this.x + this.width) && (x+56)>this.x) {
+        if(gravityFlip) ground = this.y + this.height;
+        else ground = this.y;
+        return true;
+      }
+      return false;
+    }
+  }
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    canvas.width = 1366;
+    canvas.height = 768;
+    var w = 400; //w and h are the position of the block
+    var h = 580;
+    var ground = 636;
+    var gravityFlip = false;
+    var x = 56; //x and y are actually the width and height
+    var y = 56; //i got them confused
+    var jumpPos = 0;
+    var score = 0;
+    var hiscore = 0;
+    var attempts = 0;
+    document.addEventListener("keydown", keyDownHandler, false);
+    window.addEventListener('touchstart', onTouch, false);
+    var entityQueue = [];
+
+    function onTouch(e){
+      if(jumpPos == 0){
+        jumpPos = 1;
+      }
+    }
+    function keyDownHandler(e) {
+      if(e.keyCode == "32" && jumpPos == 0) {
+        jumpPos = 1;
+      }
+    }
+    function draw() {
+      ctx.clearRect(0, 0, 1366, 636);
+      let date = new Date();
+      let grounded = false;
+      for(let o of entityQueue){
+        o.drawEntity(ctx);
+        if(o.hasCollided(w + x, h + y)){
+          attempts++;
+          if(score > hiscore) hiscore = score;
+          confirm("You died\n" + attempts + " attempts.\n hiscore: " + hiscore);
+          entityQueue = [];
+          score = 0;
+          document.getElementById("score").innerHTML = "Score: 0";
+        }
+        if(o.isGround(w)) grounded = true;
+        if((date.getTime() - o.getTime()) > 4000) { //if 4000 ms have passed since its creation remove this object
+          entityQueue.shift();
+        }
+      }
+      if(!grounded) {
+         ground = 636;
+         if(!gravityFlip && (h + y) < ground && jumpPos == 0){ //if the ground is missing beneath you start falling now
+           jumpPos = 19;
+         }
+      }
+      if((h+y) > (640)){
+        ground = 636;
+        jumpPos = 0;
+        h = ground - y;
+      }
+      if(jumpPos > 0){
+        jumpPos += 1;
+        h -= 1*(18-jumpPos); //1 is the jump scale factor
+        if(!gravityFlip && (h+y) > ground && (h+y) < (ground + 56) && jumpPos >= 18){ //ground + ... gives the block tolerance to fall below ground a bit before being set on the ground
+          jumpPos = 0;
+          h = ground - y;
+        }
+        ctx.translate(w + (x/2), h + (y/2));
+        ctx.rotate((Math.PI / 34)*jumpPos);
+        ctx.translate(-(w + (x/2)), -(h + (y/2)));
+      }
+      ctx.beginPath();
+      ctx.fillStyle = "#4502fc";
+      ctx.fillRect(w, h, x, y);
+      ctx.translate(w + (x/2), h + (y/2));
+      ctx.rotate(-((Math.PI / 34)*jumpPos));
+      ctx.translate(-(w + (x/2)), -(h + (y/2)));
+      ctx.closePath();
+
+      ctx.beginPath();
+      ctx.fillStyle = "#8d02f7";
+      ctx.fillRect(0, 580+x, canvas.width, canvas.height);
+      ctx.closePath();
+    }
+    setInterval(draw, 15);
+
+    function placeObjects(){
+      let generationSelection = Math.floor((Math.random() * 3) + 1); //random int between 1-3
+      switch(generationSelection){
+        case 1: {
+          let spike1 = new Spike(56,56,1340,580,'#000000');
+          let spike2 = new Spike(56,56,1396,580,'#474747');
+          let spike3 = new Spike(56,56,1452,580,'#000000');
+          entityQueue.push(spike1);
+          entityQueue.push(spike2);
+          entityQueue.push(spike3);
+        }
+          break;
+        case 2: {
+          let block1 = new Block(56,56,1340,580,'#c60091');
+          let block2 = new Block(56,56,1396,580,'#9800c6');
+          let block3 = new Block(56,56,1452,580,'#c60091');
+          let spike4 = new Spike(56,56,1452,524,'#5d14fc');
+          let block4 = new Block(56,56,1508,580,'#9800c6');
+          let spike5 = new Spike(56,56,1508,524,'#8046fc');
+          let block5 = new Block(56,56,1564,580,'#c60091');
+          let spike6 = new Spike(56,56,1564,524,'#5d14fc');
+          let block6 = new Block(56,56,1620,580,'#9800c6');
+          let block7 = new Block(56,56,1676,580,'#c60091');
+          entityQueue.push(block1);
+          entityQueue.push(block2);
+          entityQueue.push(block3);
+          entityQueue.push(spike4);
+          entityQueue.push(block4);
+          entityQueue.push(spike5);
+          entityQueue.push(block5);
+          entityQueue.push(spike6);
+          entityQueue.push(block6);
+          entityQueue.push(block7);
+        }
+          break;
+        case 3: {
+          let block8 = new Block(56,56,1340,580,'#c60091');
+          let block9 = new Block(56,56,1540,480,'#c60091');
+          let block10 = new Block(56,56,1740,380,'#c60091');
+          let block11 = new Block(56,56,1940,280,'#c60091');
+          let spike7 = new Spike(56,56,1940,224,'#000000');
+          entityQueue.push(block8);
+          entityQueue.push(block9);
+          entityQueue.push(block10);
+          entityQueue.push(block11);
+          entityQueue.push(spike7);
+        }
+        break;
+      }
+      score++;
+      document.getElementById("score").innerHTML = "Score: " + score;
+    }
+    setInterval(placeObjects, 1210);
+  </script>
+</html>
