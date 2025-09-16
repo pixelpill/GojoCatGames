@@ -1,0 +1,99 @@
+
+body {
+    font-family: sans-serif;
+    cursor: default;
+    white-space: nowrap;
+}
+
+.main {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #FFF0C0;
+}
+
+.zone {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.info {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    overflow: hidden;
+    opacity: 0.6;
+}
+
+.link {
+    cursor: pointer;
+}
+
+.obj {
+    position: absolute;
+    min-width: 30%;
+    min-height: 30%;
+    overflow: hidden;
+}
+
+.plr {
+    position: absolute;
+}
+
+.imgp {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.imgp2 {
+    position: absolute;
+    left: -50%;
+    top: -50%;
+    width: 200%;
+    height: 200%;
+}
+
+#man {
+    opacity: 0.8;
+}
+
+#manred {
+    opacity: 0;
+}
+
+#duang {
+    opacity: 0;
+}
+
+.size0 {
+    font-size: 40px;
+    line-height: 40px;
+    color: #B06000;
+}
+
+.size1 {
+    font-size: 32px;
+    line-height: 32px;
+    color: #B06000;
+}
+
+.size2 {
+    font-size: 24px;
+    line-height: 24px;
+    color: #603800;
+}
+
+.size3 {
+    font-size: 16px;
+    line-height: 16px;
+    color: #603800;
+}
