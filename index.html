@@ -64,20 +64,8 @@
 </head>
 
 <script>
-  const searchBar = document.getElementById('searchBar');
-  const gameList = document.getElementById('gameList');
-  const gameLinks = gameList.querySelectorAll('.game-link');
-
-  searchBar.addEventListener('input', () => {
-    const query = searchBar.value.toLowerCase();
-    gameLinks.forEach(link => {
-      const text = link.textContent.toLowerCase();
-      link.style.display = text.includes(query) ? 'inline-block' : 'none';
-    });
-  });
-</script>
- <body> <input type="text" id="searchBar" placeholder="Search games..." />
-
+  
+ <body> 
 <div id="gameList">
   <a class="game-link" href="1.html">1</a>
   <a class="game-link" href="2.html">2</a>
