@@ -2,87 +2,85 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<title>gojo cat games</title>
-	<link rel="icon" type="image/png" href="gojocat.png">
-	<link rel="shortcut icon" type="image/png" href="gojocat.png">
+  <meta charset="UTF-8">
+  <title>gojo cat games</title>
+  <link rel="icon" type="image/png" href="gojocat.png">
+  <link rel="shortcut icon" type="image/png" href="gojocat.png">
 
-	<style>
-		body {
-			background-color: #111;
-			color: #eee;
-			font-family: sans-serif;
-			padding: 40px;
-			text-align: center;
-		}
+  <style>
+    body {
+      background-color: #111;
+      color: #eee;
+      font-family: sans-serif;
+      padding: 40px;
+      text-align: center;
+    }
 
-		#gameList {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			gap: 12px;
-			margin-top: 20px;
-		}
+    #gameList {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
 
-		a.game-link {
-			padding: 10px 16px;
-			text-decoration: none;
-			color: #fff;
-			background-color: #222;
-			border-radius: 6px;
-			font-size: 16px;
-			white-space: nowrap;
-			width: auto;
-			display: inline-block;
-			transition: background 0.2s;
-		}
+    a.game-link {
+      padding: 10px 16px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #222;
+      border-radius: 6px;
+      font-size: 16px;
+      white-space: nowrap;
+      width: auto;
+      display: inline-block;
+      transition: background 0.2s;
+    }
 
-		a.game-link:hover {
-			background-color: #444;
-		}
+    a.game-link:hover {
+      background-color: #444;
+    }
 
-		#searchBar {
-			width: 240px;
-			padding: 10px;
-			margin-bottom: 20px;
-			border: none;
-			border-radius: 6px;
-			font-size: 16px;
-			background-color: #222;
-			color: #eee;
-		}
-	</style>
+    #searchBar {
+      width: 240px;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      background-color: #222;
+      color: #eee;
+    }
+  </style>
 </head>
 
 <body>
 
-	<input type="text" id="searchBar" placeholder="Search games..." />
+  <input type="text" id="searchBar" placeholder="Search games..." />
 
-	<div id="gameList">
-		<a class="game-link" href="CookieClicker.html">Cookie Clicker</a>
-		<a class="game-link" href="AmongUs.html">Among Us Fangame</a>
-		<a class="game-link" href="GetOnTop.html">Get On Top</a>
-		<a class="game-link" href="DriveMad.html">Drive Mad</a>
-		<a class="game-link" href="GB.html">Google Baseball</a>
-		<a class="game-link" href="TinyFishing.html">Tiny Fishing</a>
-		<a class="game-link" href="Duang">Duang.html</a>
-		<a class="game-link" href="DogeMiner.html">Doge Miner</a>
-		<a class="game-link" href="DogeMiner2.html">Doge Miner 2</a>
-		<a class="game-link" href="InfiltratingTheAirship.html">Infiltrating The Airship</a>
-		<a class="game-link" href="RetroBowl.html">Retro Bowl</a>
-		<a class="game-link" href="RBcollege.html">Retro Bowl College</a>
-			<a class="game-link" href="EscapingThePrison.html">Escaping The Prison</a>
-		<a class="game-link" href="Yellow.html">Yellow</a>
-			<a class="game-link" href="GeometryDashScratch.html">Geometry Dash Scratch</a 
-				<a class="game-link" href="cricket.html">Google Cricket</a 																					  
-		<a class="game-link" href="champion-island">Champion Island</a 											   
-																	 
-	
-		<!-- Add more buttons here -->
-	</div>
+  <div id="gameList">
+    <a class="game-link" href="CookieClicker.html">Cookie Clicker</a>
+    <a class="game-link" href="AmongUs.html">Among Us Fangame</a>
+    <a class="game-link" href="GetOnTop.html">Get On Top</a>
+    <a class="game-link" href="DriveMad.html">Drive Mad</a>
+    <a class="game-link" href="GB.html">Google Baseball</a>
+    <a class="game-link" href="TinyFishing.html">Tiny Fishing</a>
+    <a class="game-link" href="Duang.html">Duang</a>
+    <a class="game-link" href="DogeMiner.html">Doge Miner</a>
+    <a class="game-link" href="DogeMiner2.html">Doge Miner 2</a>
+    <a class="game-link" href="InfiltratingTheAirship.html">Infiltrating The Airship</a>
+    <a class="game-link" href="RetroBowl.html">Retro Bowl</a>
+    <a class="game-link" href="RBcollege.html">Retro Bowl College</a>
+    <a class="game-link" href="EscapingThePrison.html">Escaping The Prison</a>
+    <a class="game-link" href="Yellow.html">Yellow</a>
+    <a class="game-link" href="GeometryDashScratch.html">Geometry Dash Scratch</a>
+    <a class="game-link" href="cricket.html">Google Cricket</a>
+    <a class="game-link" href="champion-island">Champion Island</a>
+    <!-- Add more buttons here -->
+  </div>
 
-	<script>
-		document.addEventListener('DOMContentLoaded', () => {
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
       const searchBar = document.getElementById('searchBar');
       const gameList = document.getElementById('gameList');
       const gameLinks = gameList.querySelectorAll('.game-link');
@@ -95,7 +93,7 @@
         });
       });
     });
-	</script>
+  </script>
 
 </body>
 
